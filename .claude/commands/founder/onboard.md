@@ -6,8 +6,19 @@ Follow these steps:
 
 1. Ask the founder's role: Founder / CEO / Co-founder / COO
 2. Ask company basics: name, stage (idea / pre-seed / seed / series-a / series-b / growth), team size
-3. Ask execution mode preference: interactive (default, confirms decisions) or auto (auto-approves non-critical items)
-4. Detect connected OS frameworks by checking which directories exist at /c/Antigravity/:
+3. Collaboration mode: Solo / Team (if team, ask for team member names and roles)
+4. Execution mode: "How should I handle approvals?"
+   - **Interactive** (default) — confirms each major decision before proceeding
+   - **Auto** — auto-approves and keeps moving. Only stops for board communications, investor communications, hiring/firing decisions, public announcements.
+
+   Role-based defaults:
+   - **Founder** → suggest auto (move fast on internal decisions)
+   - **CEO** → interactive (organizational accountability)
+   - **Co-founder** → suggest auto
+   - **COO** → interactive (operational precision)
+
+   Save to workspace.config.md as `**Execution mode:** auto` or `**Execution mode:** interactive`
+5. Detect connected OS frameworks by checking which directories exist at /c/Antigravity/:
    - GTMOS → GTM:OS
    - CONTENTOS → CONTENT:OS
    - FINANCEOS → FINANCE:OS
@@ -15,15 +26,15 @@ Follow these steps:
    - INVESTOROS → INVESTOR:OS
    - COMMUNITYOS → COMMUNITY:OS
    Display which frameworks are detected with [x] / [ ]
-5. Ask for the company vision and mission — write it as a future state
-6. Ask for the north star metric — the one number that matters most
-7. Ask for current top 3 priorities — what the founder is focused on right now
-8. Ask for this quarter's OKRs — 2-3 objectives with 2-3 key results each
-9. Ask about board composition — do they have a board? Who is on it?
-10. Ask about key advisors and mentors
-11. Create the workspace by copying _template/ to a new directory under workspaces/
-12. Fill in workspace.config.md, VISION.md, OKRS.md, PRIORITIES.md, BOARD.md, and NETWORK.md with the gathered information
-13. Display the workspace summary:
+6. Ask for the company vision and mission — write it as a future state
+7. Ask for the north star metric — the one number that matters most
+8. Ask for current top 3 priorities — what the founder is focused on right now
+9. Ask for this quarter's OKRs — 2-3 objectives with 2-3 key results each
+10. Ask about board composition — do they have a board? Who is on it?
+11. Ask about key advisors and mentors
+12. Create the workspace by copying _template/ to a new directory under workspaces/
+13. Fill in workspace.config.md, VISION.md, OKRS.md, PRIORITIES.md, BOARD.md, and NETWORK.md with the gathered information
+14. Display the workspace summary:
 
 ```
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -40,7 +51,7 @@ Follow these steps:
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 ```
 
-14. Suggest next steps:
+15. Suggest next steps:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

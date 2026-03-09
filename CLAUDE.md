@@ -20,6 +20,14 @@ This repo is a Founder Operating System — the orchestrator layer that sits on 
 - `.claude/founderos/references/notifications.md` — Slack alert config (check on startup if team mode)
 - `.claude/founderos/references/tool-pricing.md` — per-unit costs (load during cost checks)
 
+## Execution mode
+
+Workspaces have an execution mode set during onboarding (stored in `workspace.config.md`):
+- **Interactive** — confirm each major decision before proceeding
+- **Auto** — auto-approve and keep moving. Always stop for: board communications, investor communications, hiring/firing decisions, public announcements.
+
+Check `workspace.config.md` on startup and respect the configured mode throughout the session.
+
 ## Rules
 
 - Never send board or investor communications without explicit approval
