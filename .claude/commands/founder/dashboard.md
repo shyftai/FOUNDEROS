@@ -57,6 +57,15 @@ Follow these steps:
   │  Churn rate:         {%}                                 │
   │  Revenue (if paid):  ${MRR}                              │
   │                                                          │
+  ├─ CUSTOMER SUCCESS (CS:OS) ─────────────────────────────┤
+  │  NRR:                {%} ({trend})                       │
+  │  Customers:          {n} total  |  {n} at risk           │
+  │  ARR at risk:        ${amount}                           │
+  │  Renewals this month: {n} (${amount})                    │
+  │  NPS:                {score} ({trend})                   │
+  │  Expansion pipeline: ${amount} ({n} opportunities)       │
+  │  Health: {n}% healthy  {n}% stable  {n}% at-risk        │
+  │                                                          │
   └──────────────────────────────────────────────────────────┘
 ```
 

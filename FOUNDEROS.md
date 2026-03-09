@@ -25,6 +25,7 @@ Then detect connected OS frameworks and display system status:
   │  Connected OS frameworks:                                  │
   │  [x] GTM:OS        [x] CONTENT:OS     [x] FINANCE:OS      │
   │  [x] HR:OS         [x] INVESTOR:OS    [x] COMMUNITY:OS    │
+  │  [x] CS:OS                                                 │
   │  {show [x] if /c/Antigravity/{NAME}OS/ directory exists}   │
   │  {show [ ] if directory does not exist}                    │
   │                                                            │
@@ -54,6 +55,7 @@ Check if these directories exist at `/c/Antigravity/`:
 - `HROS` → HR:OS (hiring, team, culture)
 - `INVESTOROS` → INVESTOR:OS (fundraising, investor relations)
 - `COMMUNITYOS` → COMMUNITY:OS (community building, engagement)
+- `CSOS` → CS:OS (customer health, NRR, churn risk, renewals, expansion)
 
 For each detected framework, FOUNDER:OS can read their workspace files to pull live data into dashboards, reports, and decisions.
 
@@ -70,6 +72,7 @@ Then show the flow diagram:
   │    ▼            ▼            ▼                           │
   │  GTM:OS    FINANCE:OS    HR:OS                           │
   │  CONTENT:OS INVESTOR:OS COMMUNITY:OS                     │
+  │  CS:OS                                                   │
   │    │            │            │                           │
   │    ▼            ▼            ▼                           │
   │  METRICS ── DECISIONS ── LEARN                           │
@@ -280,6 +283,14 @@ FOUNDER:OS reads data from other frameworks. It never modifies their files direc
 - Churn rate and at-risk members
 - Revenue from community (if paid)
 
+### CS:OS data points
+- Net Revenue Retention (NRR)
+- At-risk customers and churn risk scores
+- Renewal pipeline and upcoming renewals
+- Expansion pipeline and upsell opportunities
+- NPS score and trends
+- Customer health scores
+
 ---
 
 ## Decision classification
@@ -334,6 +345,7 @@ When work comes in, route it:
 | Hiring, team, culture | HR:OS | "We need to hire an engineer" |
 | Fundraising, investors | INVESTOR:OS | "Time to raise Series A" |
 | Community, engagement | COMMUNITY:OS | "Build our user community" |
+| Customer health, renewals, expansion | CS:OS | "Which customers are at risk?" |
 | Cross-domain strategy | FOUNDER:OS | "Should we pivot?" |
 
 FOUNDER:OS only handles work that spans multiple domains or requires the founder's direct judgment.

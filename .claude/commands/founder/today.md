@@ -16,7 +16,7 @@ Workspace: $ARGUMENTS
 <process>
 1. Display: `<< FOUNDER:OS // TODAY >>`
 2. Load workspace context — PRIORITIES.md, OKRS.md, DECISIONS.md, ENERGY.md
-3. Detect connected OS frameworks by checking /c/Antigravity/{GTMOS,CONTENTOS,FINANCEOS,HROS,INVESTOROS,COMMUNITYOS}
+3. Detect connected OS frameworks by checking /c/Antigravity/{GTMOS,CONTENTOS,FINANCEOS,HROS,INVESTOROS,COMMUNITYOS,CSOS}
 
 ## Priorities
 4. Show today's top 3 priorities from PRIORITIES.md
@@ -55,6 +55,13 @@ Workspace: $ARGUMENTS
 - Events today
 - At-risk members
 
+**Customer Success** (CS:OS)
+- Net revenue retention (NRR)
+- At-risk customers count and ARR at risk
+- Upcoming renewals this month
+- NPS score and trend
+- Expansion pipeline value
+
 7. For each framework: only show if the directory exists. Skip gracefully if not connected.
 
 ## Decisions pending
@@ -91,6 +98,7 @@ Workspace: $ARGUMENTS
   >> /investor:today — deep dive into fundraising
   >> /content:today — deep dive into content
   >> /community:today — deep dive into community
+  >> /cs:today — deep dive into customer success
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
