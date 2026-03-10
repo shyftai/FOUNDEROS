@@ -11,7 +11,7 @@ Build the Antigravity OS free install tracking funnel. This captures opt-in regi
 
 ## What already exists
 
-Each OS framework's /onboard command already POSTs to `https://hooks.shyftai.com/register` with this payload:
+Each OS framework's /onboard command already POSTs to `https://shyft.ai/api/hooks/register` with this payload:
 
 {
   "os": "gtmos|csos|contentos|financeos|hros|investoros|communityos|founderos",
@@ -143,7 +143,7 @@ OS display names:
 
 ### 5. DNS routing
 
-The onboard commands POST to hooks.shyftai.com/register. Set up routing:
+The onboard commands POST to shyft.ai/api/hooks/register. Set up routing:
 
 Option A (recommended): Cloudflare Worker that proxies /register and /waitlist to the Supabase edge function URLs
 Option B: Vercel rewrite in vercel.json if the site is on Vercel
@@ -174,7 +174,7 @@ For the website (.env.local):
 
 After building, test with:
 
-curl -X POST https://hooks.shyftai.com/register \
+curl -X POST https://shyft.ai/api/hooks/register \
   -H "Content-Type: application/json" \
   -d '{
     "os": "gtmos",

@@ -2,6 +2,12 @@
 
 All notable changes to FOUNDER:OS will be documented in this file.
 
+## [1.0.1] — 2026-03-10
+
+### Added
+- CS:OS integration — route customer success tasks to CS:OS from founder cockpit
+- Update briefing endpoint URLs to shyft.ai/api/hooks/
+
 ## [1.0.0] — 2026-03-09
 
 ### Added

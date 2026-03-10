@@ -51,7 +51,7 @@
 
 1. User runs `/[prefix]:onboard` in any OS framework
 2. Onboarding asks "Register for updates?" -- opt-in only
-3. If yes, Claude Code sends `POST https://hooks.shyftai.com/register`
+3. If yes, Claude Code sends `POST https://shyft.ai/api/hooks/register`
 4. Cloudflare proxies to Supabase edge function
 5. Edge function validates, inserts, upserts, notifies Slack
 6. Dashboard reads data via Supabase client with anon key + RLS
@@ -960,7 +960,7 @@ serve(async (req: Request) => {
 
 ## Step 4: DNS / Routing
 
-Three options for routing `hooks.shyftai.com/register` to the Supabase edge function.
+Three options for routing `shyft.ai/api/hooks/register` to the Supabase edge function.
 
 ### Option A: Cloudflare Worker (recommended)
 
@@ -1877,7 +1877,7 @@ supabase db push
 
 ```bash
 # Valid registration
-curl -X POST https://hooks.shyftai.com/register \
+curl -X POST https://shyft.ai/api/hooks/register \
   -H "Content-Type: application/json" \
   -d '{
     "os": "gtmos",
@@ -1890,13 +1890,13 @@ curl -X POST https://hooks.shyftai.com/register \
 # Expected: {"status":"registered"}
 
 # Missing required field
-curl -X POST https://hooks.shyftai.com/register \
+curl -X POST https://shyft.ai/api/hooks/register \
   -H "Content-Type: application/json" \
   -d '{"os": "gtmos", "version": "1.4.0"}'
 # Expected: {"error":"Missing required fields","fields":["company","email","timestamp"]}
 
 # Invalid OS
-curl -X POST https://hooks.shyftai.com/register \
+curl -X POST https://shyft.ai/api/hooks/register \
   -H "Content-Type: application/json" \
   -d '{
     "os": "invalid",
@@ -1909,7 +1909,7 @@ curl -X POST https://hooks.shyftai.com/register \
 # Expected: {"error":"Invalid OS framework","valid_values":[...]}
 
 # Invalid email
-curl -X POST https://hooks.shyftai.com/register \
+curl -X POST https://shyft.ai/api/hooks/register \
   -H "Content-Type: application/json" \
   -d '{
     "os": "gtmos",
@@ -1922,7 +1922,7 @@ curl -X POST https://hooks.shyftai.com/register \
 # Expected: {"error":"Invalid email format"}
 
 # Invalid version
-curl -X POST https://hooks.shyftai.com/register \
+curl -X POST https://shyft.ai/api/hooks/register \
   -H "Content-Type: application/json" \
   -d '{
     "os": "gtmos",
@@ -1936,7 +1936,7 @@ curl -X POST https://hooks.shyftai.com/register \
 
 # Rate limiting (send 11+ requests quickly)
 for i in $(seq 1 12); do
-  curl -s -X POST https://hooks.shyftai.com/register \
+  curl -s -X POST https://shyft.ai/api/hooks/register \
     -H "Content-Type: application/json" \
     -d "{
       \"os\": \"gtmos\",
@@ -1955,7 +1955,7 @@ done
 
 ```bash
 # Valid waitlist signup
-curl -X POST https://hooks.shyftai.com/waitlist \
+curl -X POST https://shyft.ai/api/hooks/waitlist \
   -H "Content-Type: application/json" \
   -d '{
     "email": "team@acme.com",
@@ -1966,7 +1966,7 @@ curl -X POST https://hooks.shyftai.com/waitlist \
 # Expected: {"status":"waitlisted"}
 
 # Invalid tier
-curl -X POST https://hooks.shyftai.com/waitlist \
+curl -X POST https://shyft.ai/api/hooks/waitlist \
   -H "Content-Type: application/json" \
   -d '{
     "email": "team@acme.com",
@@ -1996,8 +1996,8 @@ curl -X POST https://hooks.shyftai.com/waitlist \
 
 ### DNS / Routing
 
-- [ ] `hooks.shyftai.com/register` resolves and returns 200 for valid POST
-- [ ] `hooks.shyftai.com/waitlist` resolves and returns 200 for valid POST
+- [ ] `shyft.ai/api/hooks/register` resolves and returns 200 for valid POST
+- [ ] `shyft.ai/api/hooks/waitlist` resolves and returns 200 for valid POST
 - [ ] CORS preflight (OPTIONS) returns 200 with correct headers
 - [ ] Non-POST methods return 405
 - [ ] Unknown paths return 404
@@ -2091,7 +2091,7 @@ components/
 
 ## Appendix: Updating OS Framework Onboard Commands
 
-Each OS framework's onboard command already POSTs to `https://hooks.shyftai.com/register`. No changes needed to the payload format. The edge function accepts the exact payload structure already in use.
+Each OS framework's onboard command already POSTs to `https://shyft.ai/api/hooks/register`. No changes needed to the payload format. The edge function accepts the exact payload structure already in use.
 
 If switching to direct Supabase URL (Option C) during development, update the URL in these files:
 
@@ -2106,4 +2106,4 @@ If switching to direct Supabase URL (Option C) during development, update the UR
 | `GTMOS` | Check for onboard command |
 | `INVESTOROS` | Check for onboard command |
 
-For production, keep `hooks.shyftai.com/register` as the canonical URL.
+For production, keep `shyft.ai/api/hooks/register` as the canonical URL.
