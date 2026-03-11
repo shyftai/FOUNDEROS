@@ -184,12 +184,78 @@ FOUNDER:OS supports two execution modes, configured per workspace in `workspace.
 - Skips approval gates for weekly reviews, OKR updates, delegation assignments, and metric pulls
 - Still shows results inline so you can review, but does not pause
 - Only stops for **hard gates** (non-skippable):
+
+  **Outbound (externally visible — irreversible):**
   - Board communications — always requires explicit approval before sending
   - Investor communications — always requires explicit approval before sending
-  - Hiring/firing decisions — always requires explicit approval
+  - Public announcements — press, social, company-wide communications
+  - Press/media statements — any external media engagement
+  - Hiring/firing decisions communicated externally — offers, terminations, announcements
+
+  **Data integrity (corrupts your strategic records):**
+  - OKR changes — modifying objectives or key results
+  - Strategy document edits — changes to STRATEGY.md, VISION.md, MISSION.md
+  - Cross-OS config changes — modifying settings in other OS frameworks
+  - Delegation with budget authority — assigning spending power to others
+  - Cap table references — any document referencing ownership shared externally
+  - Financial projections shared externally — forecasts, models sent to third parties
+
+  **Infrastructure (breaks cross-OS operations):**
+  - Cross-OS integration config — changing how frameworks connect and share data
+  - API key or credential changes — rotating, updating, or exposing keys
+  - Shared tool config changes — settings that affect multiple frameworks
+
+  **Financial / compliance:**
   - Fundraising decisions — always requires explicit approval
-  - Public announcements — always requires explicit approval
-  - Budget overages — always flags if spend exceeds budget
+  - Budget overages — spend exceeds budget
+  - Compliance violations — legal, regulatory, contractual
+  - Tool credit checks marked `confirm-before-every-use`
+
+**How it works in commands:**
+- Commands that show `>> Approve / Edit / Reject` gates: in auto mode, auto-approve and continue. Log the auto-approval in `logs/decisions.md`.
+- Commands that ask clarifying questions: in auto mode, use sensible defaults from `defaults.md` and proceed. Log what was assumed.
+- Multi-step workflows (review → decide → delegate): in auto mode, chain automatically. Stop only at hard gates.
+
+### Audit log
+
+Every action in auto mode — not just gate decisions — gets logged to `logs/auto-audit.md`. This is the "black box" that lets you trace what happened if something goes wrong.
+
+**Log every auto-mode action with:**
+```
+## [ISO timestamp]
+- **Action:** what was done (e.g. "Pulled GTM pipeline metrics for weekly review")
+- **Tool:** which tool/API was called
+- **Input:** key parameters (endpoint, record count, query)
+- **Output:** result summary (records returned, status, errors)
+- **Cost:** credits/units consumed
+- **Files changed:** which files were created or modified
+- **Auto-approved gate?** yes/no — if yes, what gate was skipped
+```
+
+Keep this log append-only. Never truncate or overwrite. Rotate monthly to `logs/auto-audit-YYYY-MM.md`.
+
+### Circuit breakers
+
+Auto mode must enforce these limits per session. If any limit is hit, stop and ask.
+
+| Breaker | Threshold | What happens |
+|---------|-----------|--------------|
+| API calls per session | 500 | Stop, show count by tool, ask to continue |
+| Credits spent per session | 80% of workspace budget | Stop, show spend summary |
+| Records modified per batch | 200 | Stop, confirm before processing rest |
+| Consecutive errors | 3 | Stop, diagnose before retrying |
+| File overwrites in single session | 10 | Stop, show list of files changed |
+| Cross-workspace writes | 1 (any) | Hard stop — FOUNDER:OS reads from other OS but never silently writes to them |
+| Strategic document changes per session | 3 | Stop — prevent scope creep on vision/strategy |
+
+If a circuit breaker fires, log it in `logs/auto-audit.md` with full context and switch to interactive mode for the remainder of that workflow.
+
+### Rollback safety
+
+Before any multi-step auto-mode chain (review → decide → delegate), create a git checkpoint:
+- `git add -A && git commit -m "AUTO checkpoint: before [workflow name]"`
+- If the chain fails or a circuit breaker fires, the user can `git revert` to the checkpoint
+- Log the checkpoint commit hash in `logs/auto-audit.md`
 
 **Toggling:**
 - Set during onboarding, or change anytime in `workspace.config.md`
